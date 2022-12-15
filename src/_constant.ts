@@ -11,6 +11,7 @@ export type Row = {
 export const exampleRows: Row[] = [
   { KEY: 'nickname', KO: '닉네임', EN: 'nickname' },
   { KEY: 'name', KO: '이름', EN: 'name' },
+  { KEY: 'no_data' },
 ];
 
 export const LocalDataTypes = ['json', 'po'] as const;

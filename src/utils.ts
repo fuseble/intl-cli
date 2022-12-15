@@ -1,5 +1,11 @@
-import { exampleRows, Languages, type Row, type Language, LocaleDataType } from '_constant';
+import { Languages, type Row, type Language, LocaleDataType } from '_constant';
 import fs from 'fs';
+
+interface WriteRowsProps {
+  rows: Row[];
+  dataType: LocaleDataType;
+  allowedLanguages?: Language[];
+}
 
 export const getJSONRows = (rows: Row[]) => {
   const result: Partial<Record<Language, any>> = {};
@@ -13,7 +19,7 @@ export const getJSONRows = (rows: Row[]) => {
       } else if (row['EN']) {
         result[lang][row.KEY] = row['EN'];
       } else {
-        result[lang][row.KEY] = '<PLEASE_ADD_DATA>';
+        result[lang][row.KEY] = `<${row.KEY.toUpperCase()}>`;
       }
     });
   });
@@ -21,17 +27,15 @@ export const getJSONRows = (rows: Row[]) => {
   return result;
 };
 
-export const writeRows = (rows = exampleRows, dataType: LocaleDataType) => {
+export const writeRows = ({ rows, dataType, allowedLanguages }: WriteRowsProps) => {
   const result = getJSONRows(rows);
 
   if (!fs.existsSync(`./locale`)) {
     fs.mkdirSync(`./locale`);
   }
 
-  Object.entries(result).forEach(([lang, data]) => {
-    if (!fs.existsSync(`./locale`)) {
-      fs.mkdirSync(`./locale`);
-    }
+  for (const [lang, data] of Object.entries(result)) {
+    if (allowedLanguages && !allowedLanguages.includes(lang as Language)) continue;
 
     if (dataType === 'json') {
       fs.writeFileSync(`./locale/${lang.toLowerCase()}.json`, JSON.stringify(data, null, 2), 'utf-8');
@@ -45,7 +49,7 @@ export const writeRows = (rows = exampleRows, dataType: LocaleDataType) => {
 
       fs.writeFileSync(`./locale/${lang.toLowerCase()}.po`, poString, 'utf-8');
     }
-  });
+  }
 
   if (dataType === 'json') {
     // Total Resources
