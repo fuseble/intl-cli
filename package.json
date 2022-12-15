@@ -1,0 +1,38 @@
+{
+  "name": "fuseble-intl",
+  "version": "0.0.7",
+  "repository": "https://github.com/fuseble/intl-cli",
+  "license": "MIT",
+  "author": "AlpoxDev <contact@fuseble.com>",
+  "main": "bin/index.js",
+  "bin": {
+    "fuseble-intl": "bin/index.js"
+  },
+  "files": [
+    "bin",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "prettier --write src/**/*.ts && yarn clear && tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
+    "clear": "rm -rf build && rm -rf bin",
+    "prepublishOnly": "yarn build",
+    "start": "nodemon --config nodemon.json"
+  },
+  "dependencies": {
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.1/xlsx-0.19.1.tgz",
+    "yargs": "^17.6.2"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^18.11.15",
+    "@types/yargs": "^17.0.17",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.2",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.7.1",
+    "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.2",
+    "tsconfig-paths": "^4.1.1",
+    "typescript": "^4.9.4"
+  }
+}

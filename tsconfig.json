@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "resolveJsonModule": true,
+    "baseUrl": "./src",
+    "rootDir": "./src",
+    "outDir": "bin",
+    "skipDefaultLibCheck": false
+  },
+  "include": ["src/*.ts", "src/**/*.json"],
+  "exclude": ["node_modules", "bin"]
+}
